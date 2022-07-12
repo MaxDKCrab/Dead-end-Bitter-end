@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FMOD.Studio;
 using UnityEngine;
 
 public class EnterOrExitVehicle : MonoBehaviour
@@ -10,11 +9,9 @@ public class EnterOrExitVehicle : MonoBehaviour
     [SerializeField] private GameObject vehicleCamera;
     [SerializeField] private float carEnterRange = 10f;
     [SerializeField] private Vector3 exitCarPosition;
-    [SerializeField] private QuestWaypoint qw;
     [SerializeField] private GameObject mouseIcon;
 
     private SettingsController settings;
-    private FMOD.Studio.EventInstance motorSound;
     private Transform playerTransform;
     public LayerMask PlayerLayer;
     public bool inCar;
@@ -27,7 +24,6 @@ public class EnterOrExitVehicle : MonoBehaviour
         settings = FindObjectOfType<SettingsController>();
         interact = FindObjectOfType<InteractionManager>();
         playerTransform = player.GetComponent<Transform>();
-        motorSound = FMODUnity.RuntimeManager.CreateInstance("event:/Vehicle/Motor");
     }
 
     private void Update()
@@ -74,13 +70,10 @@ public class EnterOrExitVehicle : MonoBehaviour
     private void EnterCar()
     {
         inCar = true;
-        qw.EnterVehicleToggle();
         player.SetActive(false);
         player.transform.position = new Vector3(1000, 1000, 1000);
         vehicleCamera.SetActive(true);
         interact.HideInteractMessage();
-        motorSound.start();
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Vehicle/Vehicle Enter");
     }
 
     public void ExitCar()
@@ -89,8 +82,6 @@ public class EnterOrExitVehicle : MonoBehaviour
         vehicleCamera.SetActive(false);
         playerTransform.position = transform.position + exitCarPosition;
         player.SetActive(true);
-        motorSound.stop(STOP_MODE.IMMEDIATE);
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Vehicle/Vehicle Exit");
     }
     public void ExitCarOnDeath()
     {
@@ -98,7 +89,6 @@ public class EnterOrExitVehicle : MonoBehaviour
         vehicleCamera.SetActive(false);
         playerTransform.position = transform.position + exitCarPosition;
         player.SetActive(true);
-        motorSound.stop(STOP_MODE.IMMEDIATE);
         enterCarCD = !enterCarCD;
         StopAllCoroutines();
     }

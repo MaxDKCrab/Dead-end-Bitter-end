@@ -46,7 +46,6 @@ public class KeyPadPower : MonoBehaviour
         {
             inKeyPad = false;
             anim.SetTrigger("Close keypad");
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Zoop");
             Cursor.lockState = CursorLockMode.Locked;
             fpsView.enabled = true;
         }
@@ -54,7 +53,6 @@ public class KeyPadPower : MonoBehaviour
         {
             inKeyPad = true;
             anim.SetTrigger("Open keypad");
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Zoop");
             Cursor.lockState = CursorLockMode.None;
             fpsView.enabled = false;
         }
@@ -75,7 +73,6 @@ public class KeyPadPower : MonoBehaviour
 
     public void OkButton()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         if (NumberInput.text == correctPassword)
         {
             
@@ -84,7 +81,6 @@ public class KeyPadPower : MonoBehaviour
             inKeyPad = false;
             correctCode = true;
             anim.SetTrigger("Close keypad");
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Zoop");
             Cursor.lockState = CursorLockMode.Locked;
             fpsView.enabled = true;
             KeyPadPower thisKeypad = GetComponent<KeyPadPower>();
@@ -96,60 +92,50 @@ public class KeyPadPower : MonoBehaviour
     }
     public void BackSpaceButton()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         NumberInput.text = "";
     }
     public void Button1()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         if (NumberInput.text.Length >= passwordLength) return;
         NumberInput.text += "1";
     }
     public void Button2()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         if (NumberInput.text.Length >= passwordLength) return;
         NumberInput.text += "2";
     }
     public void Button3()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         if (NumberInput.text.Length >= passwordLength) return;
         NumberInput.text += "3";
     }
     public void Button4()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         if (NumberInput.text.Length >= passwordLength) return;
         NumberInput.text += "4";
     }
     public void Button5()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         if (NumberInput.text.Length >= passwordLength) return;
         NumberInput.text += "5";
     }
     public void Button6()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         if (NumberInput.text.Length >= passwordLength) return;
         NumberInput.text += "6";
     }
     public void Button7()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         if (NumberInput.text.Length >= passwordLength) return;
         NumberInput.text += "7";
     }
     public void Button8()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         if (NumberInput.text.Length >= passwordLength) return;
         NumberInput.text += "8";
     }
     public void Button9()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         if (NumberInput.text.Length >= passwordLength) return;
         NumberInput.text += "9";
     }

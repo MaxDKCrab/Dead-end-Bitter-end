@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FMOD.Studio;
+// using FMOD.Studio;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -24,8 +24,8 @@ public class PlayerHealthManager : MonoBehaviour
     private EnterOrExitVehicle vehicleEnter;
     [SerializeField] private Image vignette;
     [SerializeField] private Image veins;
-    private FMOD.Studio.EventInstance regenSound;
-    private FMOD.Studio.EventInstance hurtSound;
+    // private FMOD.Studio.EventInstance regenSound;
+    // private FMOD.Studio.EventInstance hurtSound;
     private bool isHurtSoundPlaying;
     private bool isRegenSoundPlaying;
     public bool isDead
@@ -59,11 +59,11 @@ public class PlayerHealthManager : MonoBehaviour
 
         if (currentHealth <= maxHealth * 0.5)
         {
-            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("PGH",1);
+            // FMODUnity.RuntimeManager.StudioSystem.setParameterByName("PGH",1);
         }
         else
         {
-            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("PGH",0);
+            // FMODUnity.RuntimeManager.StudioSystem.setParameterByName("PGH",0);
         }
     }
 
@@ -72,11 +72,11 @@ public class PlayerHealthManager : MonoBehaviour
 
     private void Start()
     {
-        hurtSound = FMODUnity.RuntimeManager.CreateInstance("event:/Player/Player Geting Hurt");
+        // hurtSound = FMODUnity.RuntimeManager.CreateInstance("event:/Player/Player Geting Hurt");
         vehicleEnter = FindObjectOfType<EnterOrExitVehicle>();
         currentHealth = maxHealth;
         gameProgress = FindObjectOfType<GameProgressionManager>();
-        regenSound = FMODUnity.RuntimeManager.CreateInstance("event:/Player/Health regeneration");
+        // regenSound = FMODUnity.RuntimeManager.CreateInstance("event:/Player/Health regeneration");
     }
 
     private void FixedUpdate()
@@ -101,7 +101,7 @@ public class PlayerHealthManager : MonoBehaviour
 
         if (!isHurtSoundPlaying)
         {
-            hurtSound.start();
+            // hurtSound.start();
         }
         isHurtSoundPlaying = true;
         
@@ -122,8 +122,8 @@ public class PlayerHealthManager : MonoBehaviour
     {
         anim.SetTrigger("Die");
         isHurtSoundPlaying = false;
-        hurtSound.stop(STOP_MODE.IMMEDIATE);
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Player/Player death");
+        // hurtSound.stop(STOP_MODE.IMMEDIATE);
+        // FMODUnity.RuntimeManager.PlayOneShot("event:/Player/Player death");
         yield return new WaitForSeconds(2f);
         if (vehicleEnter.inCar)
         {
@@ -142,10 +142,10 @@ public class PlayerHealthManager : MonoBehaviour
         if (!isDead && !isTakingDamage && currentHealth < 100f)
         {
             isHurtSoundPlaying = false;
-            hurtSound.stop(STOP_MODE.ALLOWFADEOUT);
+            // hurtSound.stop(STOP_MODE.ALLOWFADEOUT);
             if (!isRegenSoundPlaying)
             {
-                regenSound.start();
+                // regenSound.start();
             }
             isRegenSoundPlaying = true;
             currentHealth += maxHealth * (healthRegenSpeed / 1000f);
@@ -153,7 +153,7 @@ public class PlayerHealthManager : MonoBehaviour
         else
         {
             isRegenSoundPlaying = false;
-            regenSound.stop(STOP_MODE.IMMEDIATE);
+            // regenSound.stop(STOP_MODE.IMMEDIATE);
         }
     }
 }

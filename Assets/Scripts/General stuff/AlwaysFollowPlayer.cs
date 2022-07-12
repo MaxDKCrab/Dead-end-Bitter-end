@@ -11,7 +11,7 @@ public class AlwaysFollowPlayer : MonoBehaviour
     private float playerElevation;
     private EnterOrExitVehicle enterExitVehicleScript;
     public float elevationParameter;
-    // Start is called before the first frame update
+    
     void Start()
     {
 
@@ -34,7 +34,7 @@ public class AlwaysFollowPlayer : MonoBehaviour
             transform.position = playerPos.position;
         }
         
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("YX", elevationParameter);
+        // FMODUnity.RuntimeManager.StudioSystem.setParameterByName("YX", elevationParameter);
         
 
 

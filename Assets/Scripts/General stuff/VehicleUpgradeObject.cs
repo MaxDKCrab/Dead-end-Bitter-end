@@ -16,7 +16,6 @@ public class VehicleUpgradeObject : MonoBehaviour
    public string interactMessage;
    
    private GameProgressionManager gameProgress;
-   public QuestWaypoint questWaypoint;
    public GameObject dialogue1TriggerOnComplete;
    public GameObject dialogue2TriggerOnComplete;
    public GameObject notKillHabitantZone; 
@@ -54,8 +53,6 @@ public class VehicleUpgradeObject : MonoBehaviour
       {
          gameProgress.hasSandstormUpgrade = true;
          gameProgress.vehicleUpgradeLevel++;
-         questWaypoint.targetArrayValue++;
-         questWaypoint.activeQuestArrayValue++;
          FMODUnity.RuntimeManager.PlayOneShot("event:/Player/Items/Vehicle UG 1");
          dialogue2TriggerOnComplete.SetActive(true);
          notKillHabitantZone.SetActive(true);
@@ -66,8 +63,6 @@ public class VehicleUpgradeObject : MonoBehaviour
          gameProgress.hasScorchedEarthUpgrade = true;
          gameProgress.currentCheckpoint = 1;
          gameProgress.vehicleUpgradeLevel++;
-         questWaypoint.targetArrayValue++;
-         questWaypoint.activeQuestArrayValue++;
          FMODUnity.RuntimeManager.PlayOneShot("event:/Player/Items/Vehicle UG 2");
          dialogue1TriggerOnComplete.SetActive(true);
          FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Car Lvl", gameProgress.vehicleUpgradeLevel);

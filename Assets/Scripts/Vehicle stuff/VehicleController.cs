@@ -65,7 +65,7 @@ public class VehicleController : MonoBehaviour
         
         //currentMotorTorque den här siffran kan vi använda som en parameter för motorljud osv
         currentMotorTorque = (left2Collider.motorTorque + right2Collider.motorTorque) / 2f;
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("RPM", -currentMotorTorque);
+        // FMODUnity.RuntimeManager.StudioSystem.setParameterByName("RPM", -currentMotorTorque);
 
         
         if (!enterOrExitScript.inCar)

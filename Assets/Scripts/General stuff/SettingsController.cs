@@ -24,7 +24,7 @@ public class SettingsController : MonoBehaviour
     public Image checkBoxWindowed;
     public Sprite checkedBox;
     public Sprite uncheckedBox;
-    private FMOD.Studio.EventInstance pauseSnapshot;
+    // private FMOD.Studio.EventInstance pauseSnapshot;
 
     private void Start()
     {
@@ -32,7 +32,7 @@ public class SettingsController : MonoBehaviour
         healthManager = FindObjectOfType<PlayerHealthManager>();
         fpsView = FindObjectOfType<MouseLook>();
         Screen.SetResolution(1920,1080,Screen.fullScreen);
-        pauseSnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/Esq M");
+        // pauseSnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/Esq M");
         Screen.fullScreen = true;
         
     }
@@ -78,18 +78,16 @@ public class SettingsController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Escape) && inMenu && !inSettings)
         {
             Time.timeScale = 1;
-            pauseSnapshot.stop(STOP_MODE.IMMEDIATE);
+            // pauseSnapshot.stop(STOP_MODE.IMMEDIATE);
             inMenu = false;
             fpsView.enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Zoop");
             SettingsAnim.SetTrigger("CloseMenu");
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && inMenu && inSettings)
         {
             inSettings = false;
             OptionsMenuAnim.SetTrigger("CloseSettings");
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Zoop");
             SettingsAnim.SetTrigger("OpenState");
         }
     }
@@ -98,11 +96,8 @@ public class SettingsController : MonoBehaviour
     {
         //pause the game
         Time.timeScale = 0;
-        pauseSnapshot.start();
-        // do sound snapshot
-        
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Zoop");
-        
+        // pauseSnapshot.start();
+
         // bring up options
         inMenu = true;
         fpsView.enabled = false;
@@ -115,9 +110,8 @@ public class SettingsController : MonoBehaviour
     public void ResumeButton()
     {
         // unpause game
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         Time.timeScale = 1;
-        pauseSnapshot.stop(STOP_MODE.IMMEDIATE);
+        // pauseSnapshot.stop(STOP_MODE.IMMEDIATE);
         
         // do sound snapshot
         
@@ -133,17 +127,14 @@ public class SettingsController : MonoBehaviour
         //send player to MainMenu
         Time.timeScale = 1;
         inMenu = false;
-        pauseSnapshot.stop(STOP_MODE.IMMEDIATE);
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Vol Music", 0);
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
+        // pauseSnapshot.stop(STOP_MODE.IMMEDIATE);
+        // FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Vol Music", 0);
         SceneManager.LoadScene(0);
     }
 
     public void OptionsMenuButton()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         //Close options and open new object
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Zoop");
         SettingsAnim.SetTrigger("SettingsTime");
         OptionsMenuAnim.SetTrigger("OpenSettings");
         inSettings = true;
@@ -152,47 +143,42 @@ public class SettingsController : MonoBehaviour
 
     public void Resolution1920x1080()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         Screen.SetResolution(1920,1080, Screen.fullScreen);
     }
     public void Resolution1600x900()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         Screen.SetResolution(1600,900, Screen.fullScreen);
     }
     public void Resolution2560x1440()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         Screen.SetResolution(2560,1440, Screen.fullScreen);
     }
     public void Fullscreen()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         Screen.fullScreen = true;
     }
     public void Windowed()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         Screen.fullScreen = false;
     }
 
 
-    public void SetVolumeMaster(float master)
-    {
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Vol Master", master);
-    }
-    public void SetVolumeMusic(float music)
-    {
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Vol Music", music);
-    }
-    public void SetVolumeAmbience(float ambience)
-    {
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Vol Ambiens", ambience);
-    }
-    public void SetVolumeVehicle(float vehicle)
-    {
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Vol Vehicle", vehicle);
-    }
+    // public void SetVolumeMaster(float master)
+    // {
+    //     FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Vol Master", master);
+    // }
+    // public void SetVolumeMusic(float music)
+    // {
+    //     FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Vol Music", music);
+    // }
+    // public void SetVolumeAmbience(float ambience)
+    // {
+    //     FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Vol Ambiens", ambience);
+    // }
+    // public void SetVolumeVehicle(float vehicle)
+    // {
+    //     FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Vol Vehicle", vehicle);
+    // }
 
     
 

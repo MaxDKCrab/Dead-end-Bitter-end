@@ -32,13 +32,13 @@ public class DialogueManager : MonoBehaviour
 
     public float timeBetweenLetters;
 
-    private FMOD.Studio.EventInstance typingSounds;
+    // private FMOD.Studio.EventInstance typingSounds;
 
     void Start()
     {
         dialogueTracker = 0; 
         dialogueUI.SetActive(false);
-        typingSounds = FMODUnity.RuntimeManager.CreateInstance("event:/Dialog/Typing sound");
+        // typingSounds = FMODUnity.RuntimeManager.CreateInstance("event:/Dialog/Typing sound");
     }
 
     public void StartDialogue(ChoiceDialogue choiceDia)
@@ -50,11 +50,11 @@ public class DialogueManager : MonoBehaviour
 
         if (choiceDialogue.onReturnDialogue.character.isKahir)
         {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Kahir/Ka Dialog");
+            // FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Kahir/Ka Dialog");
         }
         else if (choiceDialogue.onReturnDialogue.character.isHaron)
         {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Haron/Ha Dialog");
+            // FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Haron/Ha Dialog");
         }
         
         
@@ -73,11 +73,11 @@ public class DialogueManager : MonoBehaviour
         choiceDialogue = choice;
         if (choiceDialogue.onReturnDialogue.character.isKahir)
         {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Kahir/Ka Dialog");
+            // FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Kahir/Ka Dialog");
         }
         else if (choiceDialogue.onReturnDialogue.character.isHaron)
         {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Haron/Ha Dialog");
+            // FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Haron/Ha Dialog");
         }
         isTalking = true;
         interact.HideInteractMessage();
@@ -114,23 +114,23 @@ public class DialogueManager : MonoBehaviour
         
         if (answerNum == 1)
         {
-            nameText.text = choiceDialogue.linesBranch1[dialogueTracker].character.name;
+            nameText.text = choiceDialogue.linesBranch1[dialogueTracker].character.charName;
             SetPortraitLineArray(choiceDialogue.linesBranch1);
             sentence = choiceDialogue.linesBranch1[dialogueTracker].text;
         }
         else if (answerNum == 2)
         {
-            nameText.text = choiceDialogue.linesBranch2[dialogueTracker].character.name;
+            nameText.text = choiceDialogue.linesBranch2[dialogueTracker].character.charName;
             SetPortraitLineArray(choiceDialogue.linesBranch2);
             sentence = choiceDialogue.linesBranch2[dialogueTracker].text;
         }
         else
         {
-            nameText.text = choiceDialogue.linesInitial[dialogueTracker].character.name;
+            nameText.text = choiceDialogue.linesInitial[dialogueTracker].character.charName;
             SetPortraitChoiceArray(choiceDialogue.linesInitial);
             sentence = choiceDialogue.linesInitial[dialogueTracker].text;
         }
-        typingSounds.stop(STOP_MODE.IMMEDIATE);
+        // typingSounds.stop(STOP_MODE.IMMEDIATE);
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
         if (answerNum == 0 && choiceDialogue.linesInitial[dialogueTracker].isChoiceTrigger)
@@ -149,7 +149,6 @@ public class DialogueManager : MonoBehaviour
     public void Answer1()
     {
         continueText.SetActive(true);
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         choiceText.SetActive(false);
         answerNum = 1;
         dialogueTracker = 0;
@@ -162,7 +161,6 @@ public class DialogueManager : MonoBehaviour
     public void Answer2()
     {
         continueText.SetActive(true);
-        FMODUnity.RuntimeManager.PlayOneShot("event:/Ui/Clicks");
         choiceText.SetActive(false);
         answerNum = 2;
         dialogueTracker = 0;
@@ -184,11 +182,11 @@ public class DialogueManager : MonoBehaviour
         }
         string sentence;
         
-        nameText.text = choiceDialogue.onReturnDialogue.character.name;
+        nameText.text = choiceDialogue.onReturnDialogue.character.charName;
         SetPortraitLine(choiceDialogue.onReturnDialogue);
         sentence = choiceDialogue.onReturnDialogue.text;
         
-        typingSounds.stop(STOP_MODE.IMMEDIATE);
+        // typingSounds.stop(STOP_MODE.IMMEDIATE);
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
         
@@ -198,14 +196,14 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TypeSentence (string sentence)
     {
         speechText.text = "";
-        typingSounds.start();
+        // typingSounds.start();
         foreach (char letter in sentence.ToCharArray())
         {
             speechText.text += letter;
             yield return new WaitForSeconds(timeBetweenLetters);
         }
 
-        typingSounds.stop(STOP_MODE.IMMEDIATE);
+        // typingSounds.stop(STOP_MODE.IMMEDIATE);
     }
 
     private void SetPortraitLineArray(Line[] branch)
@@ -240,11 +238,11 @@ public class DialogueManager : MonoBehaviour
         answerNum = 0;
         if (choiceDialogue.onReturnDialogue.character.isKahir)
         {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Kahir/Ka Dialog");
+            // FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Kahir/Ka Dialog");
         }
         else if (choiceDialogue.onReturnDialogue.character.isHaron)
         {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Haron/Ha Dialog");
+            // FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Haron/Ha Dialog");
         }
         inChoice = false;
         choices.SetActive(false);
@@ -259,11 +257,11 @@ public class DialogueManager : MonoBehaviour
     {
         if (choiceDialogue.onReturnDialogue.character.isKahir)
         {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Kahir/Ka Dialog");
+            // FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Kahir/Ka Dialog");
         }
         else if (choiceDialogue.onReturnDialogue.character.isHaron)
         {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Haron/Ha Dialog");
+            // FMODUnity.RuntimeManager.PlayOneShot("event:/Dialog/Haron/Ha Dialog");
         }
         choiceDialogue.isDialogueFinished = true;
         answerNum = 0;
