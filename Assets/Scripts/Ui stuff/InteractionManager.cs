@@ -5,6 +5,23 @@ using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
 {
+    
+    #region Singleton
+
+    public static InteractionManager instance;
+
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of InteractionManager found");
+            return;
+        }
+        instance = this;
+    }
+
+    #endregion
+
     [SerializeField] private GameObject interactionMessage;
     private TextMeshProUGUI interactText;
   
