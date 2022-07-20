@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HDRenderPipelineGlobalSettings
   m_EditorClassIdentifier: 
   m_DefaultVolumeProfile: {fileID: 11400000, guid: 7f342610b85f4164f808a1f380dcc668, type: 2}
-  m_LookDevVolumeProfile: {fileID: 11400000, guid: 254c4fe87beb7be4fa72e1681edbed02, type: 2}
+  m_LookDevVolumeProfile: {fileID: 11400000, guid: 8fd78170e677d1f4cb7e48e710f31b8a, type: 2}
   m_RenderingPathDefaultCameraFrameSettings:
     bitDatas:
       data1: 140666621263709

@@ -5,13 +5,30 @@ using UnityEngine;
 
 public class EnterOrExitVehicle : MonoBehaviour
 {
+    
+    #region Singleton
+
+    public static EnterOrExitVehicle instance;
+
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of EnterOrExitVehicle found");
+            return;
+        }
+        instance = this;
+    }
+
+    #endregion
+    
+    
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject vehicleCamera;
     [SerializeField] private float carEnterRange = 10f;
     [SerializeField] private Vector3 exitCarPosition;
     [SerializeField] private GameObject mouseIcon;
-
-    private SettingsController settings;
+    
     private Transform playerTransform;
     public LayerMask PlayerLayer;
     public bool inCar;
@@ -21,7 +38,6 @@ public class EnterOrExitVehicle : MonoBehaviour
     private bool enterCarCD = false;
     void Start()
     {
-        settings = FindObjectOfType<SettingsController>();
         interact = FindObjectOfType<InteractionManager>();
         playerTransform = player.GetComponent<Transform>();
     }
@@ -30,7 +46,7 @@ public class EnterOrExitVehicle : MonoBehaviour
     {
         isInCarRange = Physics.CheckSphere(transform.position, carEnterRange, PlayerLayer);
 
-        if (inCar && Input.GetKeyDown(KeyCode.Mouse0) && enterCarCD && !settings.inMenu)
+        if (inCar && Input.GetKeyDown(KeyCode.Mouse0) && enterCarCD)
         {
             ExitCar();
             StartCoroutine(Pause());
@@ -48,7 +64,7 @@ public class EnterOrExitVehicle : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (isInCarRange && !inCar && !enterCarCD && !settings.inMenu)
+        if (isInCarRange && !inCar && !enterCarCD)
         {
             EnterCar();
             StartCoroutine(Pause());

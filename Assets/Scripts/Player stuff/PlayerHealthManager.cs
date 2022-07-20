@@ -13,10 +13,25 @@ public class PlayerHealthManager : MonoBehaviour
 
     [Header("This script should not be attached to the player prefab")] [Header("")] 
     
+    #region Singleton
+
+    public static PlayerHealthManager instance;
+
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of PlayerHealthManager found");
+            return;
+        }
+        instance = this;
+    }
+
+    #endregion
+    
     [SerializeField] private Animator anim;
     public float maxHealth = 100f;
     private bool isTakingDamage;
-    public float healthRegenSpeed;
     private GameProgressionManager gameProgress;
     [SerializeField] private Transform player;
     [SerializeField] private Transform vehicleFront;
@@ -27,7 +42,6 @@ public class PlayerHealthManager : MonoBehaviour
     // private FMOD.Studio.EventInstance regenSound;
     // private FMOD.Studio.EventInstance hurtSound;
     private bool isHurtSoundPlaying;
-    private bool isRegenSoundPlaying;
     public bool isDead
     {
         get;
@@ -57,14 +71,14 @@ public class PlayerHealthManager : MonoBehaviour
 
         
 
-        if (currentHealth <= maxHealth * 0.5)
-        {
-            // FMODUnity.RuntimeManager.StudioSystem.setParameterByName("PGH",1);
-        }
-        else
-        {
-            // FMODUnity.RuntimeManager.StudioSystem.setParameterByName("PGH",0);
-        }
+        // if (currentHealth <= maxHealth * 0.5)
+        // {
+        //     // FMODUnity.RuntimeManager.StudioSystem.setParameterByName("PGH",1);
+        // }
+        // else
+        // {
+        //     // FMODUnity.RuntimeManager.StudioSystem.setParameterByName("PGH",0);
+        // }
     }
 
     
@@ -73,7 +87,7 @@ public class PlayerHealthManager : MonoBehaviour
     private void Start()
     {
         // hurtSound = FMODUnity.RuntimeManager.CreateInstance("event:/Player/Player Geting Hurt");
-        vehicleEnter = FindObjectOfType<EnterOrExitVehicle>();
+        vehicleEnter = EnterOrExitVehicle.instance;
         currentHealth = maxHealth;
         gameProgress = FindObjectOfType<GameProgressionManager>();
         // regenSound = FMODUnity.RuntimeManager.CreateInstance("event:/Player/Health regeneration");
@@ -87,9 +101,6 @@ public class PlayerHealthManager : MonoBehaviour
         }
         
         
-        
-     
-        RegenerateHealth();
         isTakingDamage = false;
     }
 
@@ -136,24 +147,24 @@ public class PlayerHealthManager : MonoBehaviour
         isDead = false;
     }
 
-    private void RegenerateHealth()
-    {
-        
-        if (!isDead && !isTakingDamage && currentHealth < 100f)
-        {
-            isHurtSoundPlaying = false;
-            // hurtSound.stop(STOP_MODE.ALLOWFADEOUT);
-            if (!isRegenSoundPlaying)
-            {
-                // regenSound.start();
-            }
-            isRegenSoundPlaying = true;
-            currentHealth += maxHealth * (healthRegenSpeed / 1000f);
-        }
-        else
-        {
-            isRegenSoundPlaying = false;
-            // regenSound.stop(STOP_MODE.IMMEDIATE);
-        }
-    }
+    // private void RegenerateHealth()
+    // {
+    //     
+    //     if (!isDead && !isTakingDamage && currentHealth < 100f)
+    //     {
+    //         isHurtSoundPlaying = false;
+    //         // hurtSound.stop(STOP_MODE.ALLOWFADEOUT);
+    //         if (!isRegenSoundPlaying)
+    //         {
+    //             // regenSound.start();
+    //         }
+    //         isRegenSoundPlaying = true;
+    //         currentHealth += maxHealth * (healthRegenSpeed / 1000f);
+    //     }
+    //     else
+    //     {
+    //         isRegenSoundPlaying = false;
+    //         // regenSound.stop(STOP_MODE.IMMEDIATE);
+    //     }
+    // }
 }
